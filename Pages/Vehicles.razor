@@ -1,0 +1,33 @@
+﻿@page "/vehicles"
+
+@inject NavigationManager NavManager
+
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.WebUtilities
+
+<h3>Vehicles</h3>
+
+<p>Selected Makes: @makes</p>
+<p>Selected Fuel Types: @fuelTypes</p>
+
+@code {
+    private string makes = "Any make";
+    private string fuelTypes = "Any fuel type";
+
+    protected override void OnInitialized()
+    {
+        var uri = new Uri(NavManager.Uri);
+
+        var queryParams = QueryHelpers.ParseQuery(uri.Query);
+        if (queryParams.ContainsKey("makes"))
+        {
+            makes = queryParams["makes"];
+        }
+
+        if (queryParams.ContainsKey("fuelTypes"))
+        {
+            fuelTypes = queryParams["fuelTypes"];
+        }
+    }
+}

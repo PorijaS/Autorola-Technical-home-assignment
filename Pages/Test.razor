@@ -1,0 +1,29 @@
+﻿@page "/test"
+
+@using Autorola_Technical_home_assignment.Data;
+<h3>Test</h3>
+
+<EditForm Model=@Person OnSubmit=@FormSubmitted>
+    <DataAnnotationsValidator />
+    
+    <h1>@LastSubmitResult</h1>
+
+    <input type="submit" class="btn btn-primary" value="Save" />
+</EditForm>
+
+@code {
+    Person Person = new Person();
+
+    string LastSubmitResult;
+
+    void FormSubmitted(EditContext editContext)
+    {
+        bool formIsValid = editContext.Validate();
+        LastSubmitResult =
+            formIsValid
+            ? "Success - form was valid"
+            : "Failure - form was invalid";
+
+        StateHasChanged();
+    }
+}
